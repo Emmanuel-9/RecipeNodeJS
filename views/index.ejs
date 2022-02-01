@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title> App</title>
+    </head>
+    <body>
+        <h1> May Node and Express be with you </h1>
+            <form action="/recipes" method="POST">
+                <input type="text" placeholder="title" name="title"><br>
+                <textarea name="Instructions" id="Instructions" cols="30" rows="10"></textarea><br>
+                <button type="submit"> ADD  </button>
+            </form>
+                <h2> Recipes </h2>
+                    <ul class="recipes">
+                        <% for(var i = 0; i < recipes.length; i++) { %>
+                            <li class="recipe">
+                                <span><%= recipes[i].title  %></span>:<br>
+                                <span><%= recipes[i].Instructions %></span>
+                            </li>
+                        <% } %>    
+                    </ul>
+                        <div>
+                            <h2>Darth Vadar invades!</h2>
+                            <p>
+                            Replace first Yoda's quote with a quote written by Darth Vadar
+                            </p>
+                            <button id="update-button">Replace Yoda's quote</button>
+                        </div>
+                        <div>
+                            <h2>Remove Darth Vadar!</h2>
+                            <p>
+                              Delete one Darth Vadar's quote. Does nothing if there are no more Darth
+                              Vadar's quote
+                            </p>
+                            <button id="delete-button">Delete Darth Vadar's quote</button>
+                          </div>
+
+                          <div id="message"></div>
+    <script src="../scripts.js"></script>                        
+    </body>
+</html>
