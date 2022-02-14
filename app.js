@@ -14,16 +14,17 @@ MongoClient.connect('mongodb+srv://manuel:.0751.62@cluster0.83mca.mongodb.net/qu
         const db = client.db('quick-recipes')
         const recipesCollection = db.collection('recipes')
 
+
         app.use(bodyParser.urlencoded({ extended: true }))
         app.use(bodyParser.json())
-
+            
         app.get('/', function(req, res) {
             db.collection('recipes').find().toArray()
             .then(results => {
-                //console.log(results)
+                console.log(results)
                 // res.render('index.ejs', {recipes: results})
                 res.status(200).json({
-                    results: results
+                     results: results
                 })
               })
               .catch(error => console.error(error))
@@ -32,6 +33,7 @@ MongoClient.connect('mongodb+srv://manuel:.0751.62@cluster0.83mca.mongodb.net/qu
         app.post('/recipes', (req, res) => {
             recipesCollection.insertOne(req.body)
             .then(results => {
+                // res.render('index.ejs', {recipes: results})
                 res.status(200).json({ results: results})
             })
             .catch(error => console.error(error))
@@ -39,16 +41,17 @@ MongoClient.connect('mongodb+srv://manuel:.0751.62@cluster0.83mca.mongodb.net/qu
 
         app.put('/recipes', (req, res) => {
             recipesCollection.findOneAndUpdate(
-                { name: 'Yoda' },
+                { title: 'Meat' },
                 {
                   $set: {
                     title: req.body.title,
-                    Instructions: req.body.Instructions
+                    Instructions: req.body.Instructions,
+                    // Ingredients: req.body.Ingredients
                   }
-                },{
-                    upsert: true
                 }
+                
             ).then(results => {
+                // res.render('index.ejs', {recipes: results})
                 res.json({results: results})
             })
             .catch(error => console.error(error))
@@ -60,17 +63,18 @@ MongoClient.connect('mongodb+srv://manuel:.0751.62@cluster0.83mca.mongodb.net/qu
                 if(result.deletedCount === 0 ){
                     return res.json('No recipe to be deleted')
                 }
-                res.json('Delete Darth Vadar quote')
+                // res.render('index.ejs', {recipes: results})
+                res.json()
             })
             .catch(error => console.error(error))
         })
         
-        app.listen(3000, function(){
+        app.listen(3000, function()  {
             console.log('Listening on the port')
         })
 
       })
-      .catch(error => console.error(error))
+       .catch(error => console.error(error))
 
 
 
